@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Sort and optimize Tailwind CSS classes automatically",
   "main": "src/index.js",
+  "homepage": "https://rohitsharmadev.me",
   "bin": {
     "tw-sort": "./bin/cli.js"
   },
@@ -11,7 +12,7 @@
     "dev": "node bin/cli.js"
   },
   "keywords": ["tailwind", "css", "sort", "optimizer", "developer-tools"],
-  "author": "Your Name",
+  "author": "Rohit Sharma",
   "license": "MIT",
   "dependencies": {
     "commander": "^11.0.0",
