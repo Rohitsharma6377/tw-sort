@@ -1,6 +1,6 @@
 {
   "name": "tw-sort",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Sort and optimize Tailwind CSS classes automatically",
   "main": "src/index.js",
   "homepage": "https://rohitsharmadev.me",
@@ -9,7 +9,10 @@
   },
   "scripts": {
     "test": "jest",
-    "dev": "node bin/cli.js"
+    "dev": "node bin/cli.js",
+    "sort": "node bin/cli.js . --write",
+    "sort:check": "node bin/cli.js . --check",
+    "postinstall": "node postinstall.js"
   },
   "keywords": [
     "tailwind",
@@ -19,6 +22,10 @@
     "developer-tools"
   ],
   "author": "Rohit Sharma",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rohitsharma6377/tw-sort"
+  },
   "license": "MIT",
   "dependencies": {
     "commander": "^11.0.0",
