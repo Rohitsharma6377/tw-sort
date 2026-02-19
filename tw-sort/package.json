@@ -1,0 +1,25 @@
+{
+  "name": "tw-sort",
+  "version": "1.0.0",
+  "description": "Sort and optimize Tailwind CSS classes automatically",
+  "main": "src/index.js",
+  "bin": {
+    "tw-sort": "./bin/cli.js"
+  },
+  "scripts": {
+    "test": "jest",
+    "dev": "node bin/cli.js"
+  },
+  "keywords": ["tailwind", "css", "sort", "optimizer", "developer-tools"],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^11.0.0",
+    "chalk": "^4.1.2",
+    "glob": "^10.3.0",
+    "fs-extra": "^11.1.1"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0"
+  }
+}
