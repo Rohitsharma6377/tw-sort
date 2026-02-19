@@ -7,34 +7,49 @@ const sorter = require('./core/sorter');
 const parser = require('./core/parser');
 
 /**
- * Find all files to process
+ * Find all files to process (WINDOWS COMPATIBLE)
  */
 function findFiles(targetPath) {
-  const stats = fs.statSync(targetPath);
-  
-  if (stats.isFile()) {
-    return [targetPath];
+  try {
+    const stats = fs.statSync(targetPath);
+    
+    if (stats.isFile()) {
+      return [targetPath];
+    }
+  } catch (error) {
+    console.error(chalk.red(`Error: Path not found - ${targetPath}`));
+    return [];
   }
   
+  // Use forward slashes for glob (works on Windows too)
+  const normalizedPath = targetPath.replace(/\\/g, '/');
+  
   const patterns = [
-    '**/*.jsx',
-    '**/*.tsx',
-    '**/*.js',
-    '**/*.ts',
-    '**/*.html',
-    '**/*.vue',
-    '**/*.svelte'
+    `${normalizedPath}/**/*.jsx`,
+    `${normalizedPath}/**/*.tsx`,
+    `${normalizedPath}/**/*.js`,
+    `${normalizedPath}/**/*.ts`,
+    `${normalizedPath}/**/*.html`,
+    `${normalizedPath}/**/*.vue`,
+    `${normalizedPath}/**/*.svelte`
   ];
   
   const files = [];
+  
   patterns.forEach(pattern => {
-    const matches = glob.sync(path.join(targetPath, pattern), {
-      ignore: ['**/node_modules/**', '**/dist/**', '**/build/**']
-    });
-    files.push(...matches);
+    try {
+      const matches = glob.sync(pattern, {
+        ignore: ['**/node_modules/**', '**/dist/**', '**/build/**'],
+        nodir: true,
+        windowsPathsNoEscape: true
+      });
+      files.push(...matches);
+    } catch (error) {
+      console.error(chalk.red(`Error searching files: ${error.message}`));
+    }
   });
   
-  return files;
+  return [...new Set(files)];
 }
 
 /**
@@ -48,7 +63,8 @@ async function sortDirectory(targetPath, options = {}) {
   const files = findFiles(targetPath);
   
   if (files.length === 0) {
-    console.log(chalk.yellow('No files found to process.'));
+    console.log(chalk.yellow('⚠ No files found to process.'));
+    console.log(chalk.gray('\nLooking for: .jsx, .tsx, .js, .ts, .html, .vue, .svelte files'));
     return;
   }
   

@@ -23,10 +23,11 @@ const CLASS_ORDER = [
   'p-', 'px-', 'py-', 'pt-', 'pr-', 'pb-', 'pl-',
   
   // 6. Typography
-  'text-', 'font-', 'leading-', 'tracking-', 'uppercase', 'lowercase',
-  
-  // 7. Backgrounds
+  // 6. Backgrounds
   'bg-', 'from-', 'via-', 'to-',
+
+  // 7. Typography
+  'text-', 'font-', 'leading-', 'tracking-', 'uppercase', 'lowercase',
   
   // 8. Borders
   'border-', 'rounded-', 'ring-',
