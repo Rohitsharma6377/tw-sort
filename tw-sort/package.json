@@ -5,13 +5,19 @@
   "main": "src/index.js",
   "homepage": "https://rohitsharmadev.me",
   "bin": {
-    "tw-sort": "./bin/cli.js"
+    "tw-sort": "bin/cli.js"
   },
   "scripts": {
     "test": "jest",
     "dev": "node bin/cli.js"
   },
-  "keywords": ["tailwind", "css", "sort", "optimizer", "developer-tools"],
+  "keywords": [
+    "tailwind",
+    "css",
+    "sort",
+    "optimizer",
+    "developer-tools"
+  ],
   "author": "Rohit Sharma",
   "license": "MIT",
   "dependencies": {
