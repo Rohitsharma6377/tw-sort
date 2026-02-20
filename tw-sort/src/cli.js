@@ -31,7 +31,10 @@ function findFiles(targetPath) {
     `${normalizedPath}/**/*.ts`,
     `${normalizedPath}/**/*.html`,
     `${normalizedPath}/**/*.vue`,
-    `${normalizedPath}/**/*.svelte`
+    `${normalizedPath}/**/*.svelte`,
+    `${normalizedPath}/**/*.css`,
+    `${normalizedPath}/**/*.scss`,
+    `${normalizedPath}/**/*.sass`
   ];
   
   const files = [];
@@ -56,7 +59,22 @@ function findFiles(targetPath) {
  * Sort classes in a directory
  */
 async function sortDirectory(targetPath, options = {}) {
-  const { write = false, check = false } = options;
+  const { write = false, check = false, removeDuplicates = true } = options;
+  
+  // if user specified root (".") or provided no path, attempt to narrow
+  // to a conventional source directory to avoid scanning unrelated files
+  const projectRoot = process.cwd();
+  const isRoot = targetPath === projectRoot;
+  if (isRoot) {
+    const preferredDirs = ['src', 'app', 'pages', 'components'];
+    for (const dir of preferredDirs) {
+      const candidate = path.join(projectRoot, dir);
+      if (fs.existsSync(candidate) && fs.statSync(candidate).isDirectory()) {
+        targetPath = candidate;
+        break;
+      }
+    }
+  }
   
   console.log(chalk.gray(`Scanning: ${targetPath}\n`));
   
@@ -77,7 +95,8 @@ async function sortDirectory(targetPath, options = {}) {
   for (const file of files) {
     const result = await parser.processAndWriteFile(file, {
       write,
-      sorter
+      sorter,
+      removeDuplicates
     });
     
     if (result.success) {

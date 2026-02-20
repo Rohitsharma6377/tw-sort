@@ -80,13 +80,15 @@ function getClassPriority(className) {
 /**
  * Sort Tailwind classes according to official order
  */
-function sortClasses(classString) {
+function sortClasses(classString, options = {}) {
+  const { removeDuplicates = true } = options;
+
   if (!classString || typeof classString !== 'string') {
     return '';
   }
   
   const classes = classString.trim().split(/\s+/).filter(Boolean);
-  const uniqueClasses = [...new Set(classes)];
+  const uniqueClasses = removeDuplicates ? [...new Set(classes)] : classes;
   
   const sorted = uniqueClasses.sort((a, b) => {
     return getClassPriority(a) - getClassPriority(b);

@@ -7,7 +7,7 @@ TW-Sort is a small CLI and library to sort and optimize Tailwind CSS utility cla
 
 - Sort Tailwind classes into a recommended order
 - Remove duplicate classes
-- Works with HTML, JSX, Vue, Svelte, JS and TS files
+- Works with HTML, JSX, Vue, Svelte, JS, TS **and CSS/SCSS/SASS** files (including `@apply` rules)
 - CLI for scanning and optionally writing changes
 
 ## Installation
@@ -26,10 +26,10 @@ npm install -g ./
 
 ## CLI Usage
 
-Run a dry run (default) that reports files needing sorting:
+Run a dry run (default) that reports files needing sorting. If you omit the path the tool will automatically search common directories such as `src`, `app`, `pages`, or `components` if present; otherwise it scans the current folder.
 
 ```bash
-node bin/cli.js <path>
+node bin/cli.js [path]
 ```
 
 Apply changes in-place:
@@ -48,7 +48,9 @@ Options:
 
 - `--write`, `-w`: Write changes to files
 - `--check`, `-c`: Exit with error if unsorted files are found
-- `--remove-duplicates`: Remove duplicate classes (default: true)
+- `--no-remove-duplicates`: Disable removal of duplicate classes (duplicates are removed by default)
+
+You can also process `@apply` directives in CSS/SCSS/SASS; the CLI will include `*.css`, `*.scss`, and `*.sass` files in the search patterns.
 
 ## Programmatic API
 

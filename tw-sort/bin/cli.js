@@ -15,7 +15,7 @@ program
   .argument('[path]', 'Path to files or directory', '.')
   .option('-w, --write', 'Write changes to files (default: dry run)')
   .option('-c, --check', 'Check without modifying (exit with error if unsorted)')
-  .option('--remove-duplicates', 'Remove duplicate classes', true)
+  .option('--no-remove-duplicates', 'Do **not** remove duplicate classes (default: duplicates are removed)')
   .action(async (targetPath, options) => {
     console.log(chalk.blue.bold('🎨 TW-Sort - Tailwind Class Sorter\n'));
     

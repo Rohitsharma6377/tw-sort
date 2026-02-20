@@ -44,4 +44,10 @@ describe('Tailwind Class Sorter', () => {
     expect(result).toContain('text-white');
     expect(result).toContain('rounded-lg');
   });
+
+  test('optionally keeps duplicates when requested', () => {
+    const input = 'flex flex p-4 p-4 text-red-500';
+    const result = sortClasses(input, { removeDuplicates: false });
+    expect(result).toBe('flex flex p-4 p-4 text-red-500');
+  });
 });
